@@ -1,6 +1,8 @@
+.calva
 .clj-kondo
 .cpcache
 .lsp
 .shadow-cljs
+.nrepl-port
 node_modules
 public/js
