@@ -22,8 +22,16 @@ Would be nice to have:
 - Choose between written practice or voice synthesis.
 - For voice, there should be options for speed, language, how long are the pauses, etc.
 - Help section, teaching how to use a soroban.
+- Maybe add bead sounds
+- Upload to Github Pages
+- How to learn mental soroban? How to practice?
 
 # Other
 
 - Add Portfolio, maybe
 - Add tests
+- CSS styling
+- Beads
+- Thousands marker, moving marker?
+- How to deal with decimals
+- Add help for speech synthesis on linux, flatpak, etc. At least add an indicator.
