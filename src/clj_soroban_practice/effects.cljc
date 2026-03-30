@@ -9,11 +9,14 @@
    (swap! store assoc
           :started-at started-at
           :route :main
-          :max-columns 6
-          :number 0
-          :speed-practice/digits 3
-          :speed-practice/one-per-line 3
-          :speed-practice/how-many-numbers 5)))
+
+          :number-practice {:columns 6
+                            :number 0}
+          
+          :speed-practice {:digits 3
+                           :one-per-line true
+                           :how-many-numbers 5
+                           :active-session nil})))
 
 ;; TODO batch
 (nxr/register-effect!
