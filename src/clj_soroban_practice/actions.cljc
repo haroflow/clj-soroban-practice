@@ -1,6 +1,8 @@
 (ns clj-soroban-practice.actions
   (:require
    [clj-soroban-practice.logic :as logic]
+   [clj-soroban-practice.utils :as utils]
+   [clojure.string :as string]
    [nexus.registry :as nxr]))
 
 (nxr/register-action!
@@ -12,12 +14,33 @@
          new-number (logic/columns->number new-columns)]
      [[:effects/save [:number] new-number]])))
 
+(defn generate-practice! [digits how-many-numbers]
+  ; impure, has random generation and getTime
+  (let [random-numbers (repeatedly how-many-numbers #(logic/gen-random-number digits))
+        sum (reduce + random-numbers)
+        now (utils/now)]
+    {:numbers random-numbers
+     :sum sum
+     :now now
+     :speak (string/join ", " random-numbers)}))
+
+;; TODO Maybe add a global shortcut (spacebar) to show answer
+;; TODO Show elapsed time or time taken
+;; TODO Add option for addition/subtraction
+;; TODO Subtraction should not give a negative number
+;; TODO Add language option... english / pt-br
+;; TODO add interrupt
 (nxr/register-action!
  :actions/start-speed-practice
- (fn [_state]
-   ;; TODO I can't generate the random number here? i dont think so... because these actions are supposed to be pure...
-   ;; what I could do is generate based on seed... then it becomes pure.
-   [[:effects/start-speed-practice]]))
+ (fn [state]
+   (let [digits (:speed-practice/digits state)
+         how-many-numbers (:speed-practice/how-many-numbers state)
+         practice (generate-practice! digits how-many-numbers)]
+     [[:effects/save [:random-numbers-started-at] (:now practice)]
+      [:effects/save [:show-answer] false]
+      [:effects/save [:random-numbers] (:numbers practice)]
+      [:effects/save [:random-numbers-sum] (:sum practice)]
+      [:effects/speak (:speak practice)]])))
 
 (nxr/register-action!
  :actions/show-answer
