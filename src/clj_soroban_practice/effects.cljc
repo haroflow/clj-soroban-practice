@@ -1,5 +1,5 @@
 (ns clj-soroban-practice.effects
-  (:require 
+  (:require
    [clj-soroban-practice.utils :as utils]
    [nexus.registry :as nxr]))
 
@@ -12,7 +12,7 @@
 
           :number-practice {:columns 6
                             :number 0}
-          
+
           :speed-practice {:digits 3
                            :one-per-line true
                            :how-many-numbers 5

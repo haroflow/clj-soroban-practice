@@ -27,11 +27,9 @@
        parse-long))
 
 (defn gen-random-number [digits]
-  (let [mult (math/pow 10 (dec digits))
-        max (* 9 mult)
-        rnd (rand-int max)
-        max-ranged (+ (* 1 mult) rnd)]
-    max-ranged))
+  (let [range-min (math/pow 10 (dec digits))
+        range-max (math/pow 10 digits)]
+    (utils/rand-int-between range-min range-max)))
 
 (defn- add-bead [bead-value column-data]
   (case bead-value

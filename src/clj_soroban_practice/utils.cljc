@@ -11,3 +11,11 @@
 (defn now []
   #?(:cljs (.getTime (js/Date.))
      :clj (System/currentTimeMillis)))
+
+(defn rand-int-between
+  "Returns a random integer between `a` (inclusive) and `b` (exclusive)."
+  [a b]
+  {:pre [(< a b)]}
+  (let [diff (- b a)
+        r (rand-int diff)]
+    (+ r a)))
