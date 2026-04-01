@@ -12,7 +12,10 @@
 (defn- render []
   (nxr/register-system->state! deref)
   (r/set-dispatch! #(nxr/dispatch store %1 %2))
-  (add-watch store ::render #(r/render js/document.body (main-page/render %4))))
+  (let [app (.getElementById js/document "app")]
+    (add-watch store ::render
+               (fn [_ _ _ new-state]
+                 (r/render app (main-page/render new-state))))))
 
 (defn ^:export init []
   (println "init")
