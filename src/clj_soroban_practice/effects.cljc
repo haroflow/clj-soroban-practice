@@ -30,7 +30,11 @@
  (fn [_ store view-kw]
    (swap! store assoc :route view-kw)))
 
+;; TODO we're using [:speed-practice :voice], but this effect is global.
 (nxr/register-effect!
  :effects/speak
- (fn [_ _store phrase]
-   (utils/speak phrase)))
+ (fn [_ store phrase]
+   (let [selected-voice (-> @store :speed-practice :voice)
+         voices (@store :voices)
+         voice (first (filter #(= selected-voice (.-name %)) voices))]
+     (utils/speak phrase voice))))

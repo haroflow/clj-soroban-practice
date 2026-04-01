@@ -19,6 +19,10 @@
 
 (defn ^:export init []
   (println "init")
+  (.addEventListener js/speechSynthesis "voiceschanged"
+                     (fn [_event]
+                       (let [voices (.getVoices js/speechSynthesis)]
+                         (nxr/dispatch store nil [[:effects/save [:voices] voices]]))))
   (render)
   (nxr/dispatch store nil [[:effects/initialize-db (.getTime (js/Date.))]]))
 

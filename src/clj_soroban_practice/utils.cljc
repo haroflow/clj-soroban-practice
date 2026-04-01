@@ -4,9 +4,13 @@
   #?(:clj  (String/format (str "%0" len "d") (into-array [n]))
      :cljs (.padStart (.toString n) len "0")))
 
-(defn speak [phrase]
-  #?(:cljs (.speak js/speechSynthesis (js/SpeechSynthesisUtterance. phrase))
-     :clj (println "Speaking: " phrase)))
+(defn speak [phrase voice]
+  #?(:cljs
+     (do (.cancel js/speechSynthesis)
+         (let [utter (js/SpeechSynthesisUtterance. phrase)]
+           (set! (.-voice utter) voice)
+           (.speak js/speechSynthesis utter)))
+     :clj (println "Speaking: " phrase voice)))
 
 (defn now []
   #?(:cljs (.getTime (js/Date.))
