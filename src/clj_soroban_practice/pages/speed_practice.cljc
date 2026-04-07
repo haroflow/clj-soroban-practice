@@ -5,7 +5,6 @@
 (def ^:private min-numbers 1)
 (def ^:private max-numbers 20)
 
-;; TODO fix number ranges
 (defn render [state]
   (let [practice (:speed-practice state)
         {:keys [digits how-many-numbers one-per-line active-session]} practice]
