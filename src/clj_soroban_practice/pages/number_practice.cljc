@@ -11,7 +11,6 @@
   (let [practice (:number-practice state)
         {:keys [columns number]} practice]
     [:div
-     [:h2 "Number Practice"]
      [:label "Columns"]
      [:input {:type :number
               :value columns
@@ -26,7 +25,6 @@
               :max max-number
               :on {:input [[:effects/save [:number-practice :number]
                             [:fmt/number-clamped [:event.target/value] min-number max-number]]]}}]
-     [:br]
-     [:br]
-     [:div {:style {:display :flex}}
+     [:button "Reset"] ;; TODO implement
+     [:div.full-width-centered.mt-1rem
       (soroban/render number columns)]]))

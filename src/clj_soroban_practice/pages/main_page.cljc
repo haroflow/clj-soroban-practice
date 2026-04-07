@@ -4,18 +4,19 @@
    [clj-soroban-practice.pages.speed-practice :as speed-practice]))
 
 (defn render [state]
-  [:div
-   [:a {:href "#"
-        :on {:click [[:effects/navigate :main]]}}
+  [:div.main-container
+   [:a.main-title {:href "#"
+                   :on {:click [[:effects/navigate :main]]}}
     [:h1 "Soroban Practice"]]
-
-   [:button {:on {:click [[:effects/navigate :number-practice]]}}
-    "Number practice"]
-   [:button {:on {:click [[:effects/navigate :speed-practice]]}}
-    "Speed practice"]
-   [:br]
-   [:br]
-
+   [:div.navbar
+    [:a {:class (when (= :number-practice (:route state)) "active")
+         :href "#"
+         :on {:click [[:effects/navigate :number-practice]]}}
+     "Number practice"]
+    [:a {:class (when (= :speed-practice (:route state)) "active")
+         :href "#"
+         :on {:click [[:effects/navigate :speed-practice]]}}
+     "Speed practice"]]
    (case (:route state)
      :main [:h1 "Welcome"]
      :number-practice (number-practice/render state)

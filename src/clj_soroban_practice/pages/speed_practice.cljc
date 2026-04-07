@@ -9,7 +9,6 @@
   (let [practice (:speed-practice state)
         {:keys [digits how-many-numbers one-per-line active-session]} practice]
     [:div
-     [:h2 "Speed Practice"]
      [:p "Practice your speed on a real soroban!"]
      [:div
       [:label "Digits"]
