@@ -2,7 +2,11 @@
   (:require
    [clj-soroban-practice.components.soroban :as soroban]))
 
-;; TODO fix number ranges
+(def ^:private min-columns 3)
+(def ^:private max-columns 15)
+(def ^:private min-number 0)
+(def ^:private max-number 999999999999999)
+
 (defn render [state]
   (let [practice (:number-practice state)
         {:keys [columns number]} practice]
@@ -11,15 +15,18 @@
      [:label "Columns"]
      [:input {:type :number
               :value columns
-              :on {:input [[:effects/save [:number-practice :columns] [:fmt/number [:event.target/value]]]]}}]
-
+              :min min-columns
+              :max max-columns
+              :on {:input [[:effects/save [:number-practice :columns]
+                            [:fmt/number-clamped [:event.target/value] min-columns max-columns]]]}}]
      [:label "Number"]
      [:input {:type :number
               :value number
-              :on {:input [[:effects/save [:number-practice :number] [:fmt/number [:event.target/value]]]]}}]
-
+              :min min-number
+              :max max-number
+              :on {:input [[:effects/save [:number-practice :number]
+                            [:fmt/number-clamped [:event.target/value] min-number max-number]]]}}]
      [:br]
      [:br]
-
      [:div {:style {:display :flex}}
       (soroban/render number columns)]]))

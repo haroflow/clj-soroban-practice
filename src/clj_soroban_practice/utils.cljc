@@ -23,3 +23,6 @@
   (let [diff (- b a)
         r (rand-int diff)]
     (+ r a)))
+
+(defn clamp [n min-val max-val]
+  (max min-val (min max-val n)))
