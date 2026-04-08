@@ -23,7 +23,7 @@
     {:started-at now
      :numbers random-numbers
      :sum sum
-     :speak (string/join ". " random-numbers)
+     :speak (string/join " . " random-numbers)
      :show-answer false}))
 
 ;; TODO Maybe add a global shortcut (spacebar) to show answer

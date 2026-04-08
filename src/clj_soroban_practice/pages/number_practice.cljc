@@ -25,6 +25,6 @@
               :max max-number
               :on {:input [[:effects/save [:number-practice :number]
                             [:fmt/number-clamped [:event.target/value] min-number max-number]]]}}]
-     [:button "Reset"] ;; TODO implement
+     [:button {:on {:click [[:effects/save [:number-practice :number] 0]]}} "Clear"]
      [:div.full-width-centered.mt-1rem
       (soroban/render number columns)]]))
