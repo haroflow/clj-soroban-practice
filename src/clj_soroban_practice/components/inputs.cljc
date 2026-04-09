@@ -1,0 +1,23 @@
+(ns clj-soroban-practice.components.inputs)
+
+(defn numeric [value min max path]
+  [:input {:type :number
+           :value value
+           :min min
+           :max max
+           :on {:input [[:effects/save path
+                         [:fmt/number-clamped [:event.target/value] min max]]]}}])
+
+(defn checkbox [checked path]
+  [:input {:type :checkbox
+           :checked checked
+           :on {:input [[:effects/save path [:event.target/checked]]]}}])
+
+(defn select [value options value-fn label-fn path]
+  [:select
+   {:on {:input [[:effects/save path [:event.target/value]]]}}
+   (for [option options]
+     (let [v (value-fn option)]
+       [:option {:value v
+                 :selected (when (= v value) true)}
+        (label-fn option)]))])

@@ -37,14 +37,14 @@ body {
   font-size: 1.5rem;
   text-decoration: none;
   font-family: 'Indie Flower', sans-serif;
-  color: #7C966D;
 }
 
 .main-container .main-title h1 {
   margin: 0;
+  color: #7C966D;
 }
 
-p, h2, h3, h4, label {
+p, h1, h2, h3, h4, label {
   color: #3A4238;
 }
 
@@ -188,4 +188,14 @@ body::before {
 
 .mt-1rem {
   margin-top: 1rem;
+}
+
+.flex-row-gap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.inline-flex {
+  display: inline-flex;
 }

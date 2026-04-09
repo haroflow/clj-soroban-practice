@@ -9,11 +9,9 @@
    (swap! store assoc
           :started-at started-at
           :route :main
-
-          :number-practice {:columns 6
-                            :number 0}
-
-          :speed-practice {:digits 3
+          :free-mode {:columns 6
+                      :number 0}
+          :speed-training {:digits 3
                            :one-per-line true
                            :how-many-numbers 5
                            :active-session nil})))
@@ -30,11 +28,11 @@
  (fn [_ store view-kw]
    (swap! store assoc :route view-kw)))
 
-;; TODO we're using [:speed-practice :voice], but this effect is global.
+;; TODO we're using [:speed-training :voice], but this effect is global.
 (nxr/register-effect!
  :effects/speak
  (fn [_ store phrase]
-   (let [selected-voice (-> @store :speed-practice :voice)
+   (let [selected-voice (-> @store :speed-training :voice)
          voices (@store :voices)
          voice (first (filter #(= selected-voice (.-name %)) voices))]
      (utils/speak phrase voice))))

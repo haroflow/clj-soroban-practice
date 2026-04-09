@@ -25,6 +25,10 @@ Would be nice to have:
 - Maybe add bead sounds
 - Upload to Github Pages
 - How to learn mental soroban? How to practice?
+- Add timer to keep track of how long we have been practicing?
+- Rename to Soroban Training?
+- Stop voice on route change
+- When dictating big numbers, group by 3 digits?
 
 # Other
 
