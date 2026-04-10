@@ -15,12 +15,14 @@
          new-number (logic/columns->number new-columns)]
      [[:effects/save [:free-mode :number] new-number]])))
 
-(defn generate-practice! [digits how-many-numbers]
+(defn generate-practice! [digits how-many-numbers subtraction]
   ; impure, has random generation and getTime
-  (let [random-numbers (repeatedly how-many-numbers #(logic/gen-random-number digits))
+  (let [random-numbers (if subtraction
+                         (logic/gen-numbers-with-subtraction how-many-numbers digits)
+                         (repeatedly how-many-numbers #(logic/gen-random-number digits)))
         sum (reduce + random-numbers)
         now (utils/now)]
-    {:started-at now
+    {:started-at now ; TODO not used
      :numbers random-numbers
      :sum sum
      :speak (string/join " . " random-numbers)
@@ -38,12 +40,16 @@
    (let [speed-training (:speed-training state)
          digits (:digits speed-training)
          how-many-numbers (:how-many-numbers speed-training)
-         practice (generate-practice! digits how-many-numbers)]
-     [[:effects/save [:speed-training :active-session] practice]
-      [:effects/speak (:speak practice)]])))
+         subtraction (:subtraction speed-training)
+         practice (generate-practice! digits how-many-numbers subtraction)
+         voice-selected? (not (clojure.string/blank? (:voice speed-training)))]
+     (cond-> [[:effects/save [:speed-training :active-session] practice]]
+       voice-selected? (conj [:effects/speak (:speak practice)])))))
 
 (nxr/register-action!
  :actions/show-answer
  (fn [state]
-   [[:effects/save [:speed-training :active-session :show-answer] true]
-    [:effects/speak (str "Result: " (-> state :speed-training :active-session :sum))]]))
+   (let [speed-training (:speed-training state)
+         voice-selected? (not (clojure.string/blank? (:voice speed-training)))]
+     (cond-> [[:effects/save [:speed-training :active-session :show-answer] true]]
+       voice-selected? (conj [:effects/speak (str "Result: " (-> state :speed-training :active-session :sum))])))))

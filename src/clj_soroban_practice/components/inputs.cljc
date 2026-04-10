@@ -13,9 +13,11 @@
            :checked checked
            :on {:input [[:effects/save path [:event.target/checked]]]}}])
 
-(defn select [value options value-fn label-fn path]
+(defn select [value options value-fn label-fn path show-none]
   [:select
    {:on {:input [[:effects/save path [:event.target/value]]]}}
+   (when show-none
+     [:option {:value ""} "None"])
    (for [option options]
      (let [v (value-fn option)]
        [:option {:value v

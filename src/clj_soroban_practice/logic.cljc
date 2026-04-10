@@ -27,9 +27,25 @@
        parse-long))
 
 (defn gen-random-number [digits]
-  (let [range-min (math/pow 10 (dec digits))
-        range-max (math/pow 10 digits)]
+  (let [range-min (int (math/pow 10 (dec digits)))
+        range-max (int (math/pow 10 digits))]
     (utils/rand-int-between range-min range-max)))
+
+(defn gen-random-number-subtraction [digits]
+  (let [range-min (- 1 (int (math/pow 10 digits)))
+        range-max (int (math/pow 10 digits))]
+    (utils/rand-int-between range-min range-max)))
+
+(defn gen-numbers-with-subtraction [n digits]
+  (loop [result [(gen-random-number digits)]
+         c 1]
+    (if (> c n)
+      result
+      (let [partial-sum (reduce + result)
+            next-number (gen-random-number-subtraction digits)]
+        (if (or (pos? next-number) (pos? (+ partial-sum next-number)))
+          (recur (conj result next-number) (inc c))
+          (recur result c))))))
 
 (defn- add-bead [bead-value column-data]
   (case bead-value
