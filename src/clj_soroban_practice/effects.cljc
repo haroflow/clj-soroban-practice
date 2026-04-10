@@ -12,8 +12,9 @@
           :free-mode {:columns 6
                       :number 0}
           :speed-training {:digits 3
-                           :one-per-line true
+                           :one-per-line false
                            :how-many-numbers 5
+                           :voice-rate 1
                            :active-session nil})))
 
 ;; TODO batch
@@ -34,5 +35,6 @@
  (fn [_ store phrase]
    (let [selected-voice (-> @store :speed-training :voice)
          voices (@store :voices)
-         voice (first (filter #(= selected-voice (.-name %)) voices))]
-     (utils/speak phrase voice))))
+         voice (first (filter #(= selected-voice (.-name %)) voices))
+         rate (-> @store :speed-training :voice-rate)]
+     (utils/speak phrase voice rate))))

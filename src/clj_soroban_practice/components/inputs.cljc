@@ -23,3 +23,11 @@
        [:option {:value v
                  :selected (when (= v value) true)}
         (label-fn option)]))])
+
+(defn range [value min-val max-val step path]
+  [:input {:type :range
+           :min min-val
+           :max max-val
+           :step step
+           :value value
+           :on {:input [[:effects/save path [:event.target/value]]]}}])

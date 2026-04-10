@@ -71,7 +71,7 @@ p, label {
   font-weight: 500;
 }
 
-input, select {
+input[type="text"], input[type="number"], select {
   color: #3A4238;
   background-color: #F2F4F2;
   padding: 0.5rem;
@@ -198,4 +198,20 @@ body::before {
 
 .inline-flex {
   display: inline-flex;
+}
+
+.flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.mb-1rem {
+  margin-bottom: 1rem;
+}
+
+.gap {
+  gap: 1rem;
 }
