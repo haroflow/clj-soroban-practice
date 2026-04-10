@@ -24,7 +24,7 @@
                  :selected (when (= v value) true)}
         (label-fn option)]))])
 
-(defn range [value min-val max-val step path]
+(defn range-input [value min-val max-val step path]
   [:input {:type :range
            :min min-val
            :max max-val

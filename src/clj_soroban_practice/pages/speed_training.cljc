@@ -31,7 +31,7 @@
      
      [:div.flex-row-gap
       [:label.flex.align-items-center.mt-1rem.mb-1rem.gap "Voice speed"
-       (inputs/range (:voice-rate data) 0.1 10.0 0.1 [:speed-training :voice-rate])
+       (inputs/range-input (:voice-rate data) 0.1 10.0 0.1 [:speed-training :voice-rate])
        [:span (:voice-rate data)]]]
      
      (if (or (nil? (:numbers active-session))
