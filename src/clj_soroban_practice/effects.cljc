@@ -27,6 +27,7 @@
 (nxr/register-effect!
  :effects/navigate
  (fn [_ store view-kw]
+   (utils/cancel-speech)
    (swap! store assoc :route view-kw)))
 
 ;; TODO we're using [:speed-training :voice], but this effect is global.

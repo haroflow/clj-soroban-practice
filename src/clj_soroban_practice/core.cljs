@@ -4,6 +4,7 @@
    [clj-soroban-practice.effects]
    [clj-soroban-practice.pages.main-page :as main-page]
    [clj-soroban-practice.placeholders]
+   [clojure.string :as string]
    [nexus.registry :as nxr]
    [replicant.dom :as r]))
 
@@ -17,14 +18,21 @@
                (fn [_ _ _ new-state]
                  (r/render app (main-page/render new-state))))))
 
+(defn- sync-route []
+  (let [new-route (-> js/window.location.hash (string/split "#/") second keyword)]
+    (nxr/dispatch store nil [[:effects/navigate new-route]])))
+
+(defn- load-voices []
+  (let [voices (.getVoices js/speechSynthesis)]
+    (nxr/dispatch store nil [[:effects/save [:voices] voices]])))
+
 (defn ^:export init []
   (println "init")
-  (.addEventListener js/speechSynthesis "voiceschanged"
-                     (fn [_event]
-                       (let [voices (.getVoices js/speechSynthesis)]
-                         (nxr/dispatch store nil [[:effects/save [:voices] voices]]))))
+  (.addEventListener js/speechSynthesis "voiceschanged" (fn [_event] (load-voices)))
+  (.addEventListener js/window "hashchange" (fn [_] (sync-route)))
   (render)
-  (nxr/dispatch store nil [[:effects/initialize-db (.getTime (js/Date.))]]))
+  (nxr/dispatch store nil [[:effects/initialize-db (.getTime (js/Date.))]])
+  (sync-route))
 
 (defn ^:export ^:dev/after-load reload []
   (println "reload")

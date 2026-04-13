@@ -5,14 +5,12 @@
 
 (defn- menu-button [label route current-route]
   [:a {:class (when (= route current-route) "active")
-       :href "#"
-       :on {:click [[:effects/navigate route]]}}
+       :href (str "#/" (name route))}
    label])
 
 (defn render [state]
   [:div.main-container
-   [:a.main-title {:href "#"
-                   :on {:click [[:effects/navigate :main]]}}
+   [:a.main-title {:href "#/"}
     [:h1 "Soroban Practice"]]
    
    [:div.navbar
@@ -21,7 +19,7 @@
     (menu-button "Learn" :learn (:route state))]
    
    (case (:route state)
-     :main [:h1 "Welcome"]
+     nil [:h1 "Welcome"]
      :free-mode (free-mode/render state)
      :speed-training (speed-training/render state)
-     [:h1 (:route state)])])
+     [:h1 "Page not found"])])

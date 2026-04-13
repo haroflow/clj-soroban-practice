@@ -13,6 +13,10 @@
            (.speak js/speechSynthesis utter)))
      :clj (println "Speaking: " phrase voice rate)))
 
+(defn cancel-speech []
+  #?(:cljs (.cancel js/speechSynthesis)
+     :clj (println "Cancel speech")))
+
 (defn now []
   #?(:cljs (.getTime (js/Date.))
      :clj (System/currentTimeMillis)))
