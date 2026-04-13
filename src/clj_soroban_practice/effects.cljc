@@ -23,7 +23,6 @@
  (fn [_ store path value]
    (swap! store assoc-in path value)))
 
-;; TODO change url? maybe add an action for this too? idk
 (nxr/register-effect!
  :effects/navigate
  (fn [_ store view-kw]

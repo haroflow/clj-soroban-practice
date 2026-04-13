@@ -15,27 +15,16 @@ Add practice modes for digital/real soroban:
 Would be nice to have:
 
 - Maybe a timer to show the answer, or maybe a shortcut like space bar.
+- Continuous mode, randomize and speak after result.
 - Mobile friendly.
     I think the prototype should work fine on mobile, though it would be nice if the beads followed the fingers exactly.
     Swiping would be nice.
 - Difficulty options
-- Choose between written practice or voice synthesis.
 - For voice, there should be options for speed, language, how long are the pauses, etc.
 - Help section, teaching how to use a soroban.
 - Maybe add bead sounds
 - Upload to Github Pages
 - How to learn mental soroban? How to practice?
 - Add timer to keep track of how long we have been practicing?
-- Rename to Soroban Training?
-- Stop voice on route change
 - When dictating big numbers, group by 3 digits?
-
-# Other
-
-- Add Portfolio, maybe
-- Add tests
-- CSS styling
-- Beads
-- Thousands marker, moving marker?
-- How to deal with decimals
 - Add help for speech synthesis on linux, flatpak, etc. At least add an indicator.

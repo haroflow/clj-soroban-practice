@@ -30,10 +30,6 @@
 
 ;; TODO Maybe add a global shortcut (spacebar) to show answer
 ;; TODO Show elapsed time or time taken
-;; TODO Add option for addition/subtraction
-;; TODO Subtraction should not give a negative number
-;; TODO Add language option... english / pt-br
-;; TODO add interrupt
 (nxr/register-action!
  :actions/start-speed-training
  (fn [state]

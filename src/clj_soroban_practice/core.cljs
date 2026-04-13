@@ -29,7 +29,7 @@
 (defn ^:export init []
   (println "init")
   (.addEventListener js/speechSynthesis "voiceschanged" (fn [_event] (load-voices)))
-  (.addEventListener js/window "hashchange" (fn [_] (sync-route)))
+  (.addEventListener js/window "hashchange" (fn [_event] (sync-route)))
   (render)
   (nxr/dispatch store nil [[:effects/initialize-db (.getTime (js/Date.))]])
   (sync-route))
