@@ -17,4 +17,4 @@
      [:button {:on {:click [[:effects/save [:free-mode :number] 0]]}} "Clear"]
 
      [:div.full-width-centered.mt-1rem
-      (soroban/render number columns)]]))
+      (soroban/render number columns [:free-mode :number])]]))

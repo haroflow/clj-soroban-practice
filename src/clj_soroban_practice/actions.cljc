@@ -7,13 +7,11 @@
 
 (nxr/register-action!
  :actions/bead-click
- (fn [state bead-value column-data column-index]
-   (let [number-practice (:free-mode state)
-         new-column-data (logic/toggle-bead bead-value column-data)
-         columns (logic/number->columns (:number number-practice) (:columns number-practice))
-         new-columns (assoc columns column-index new-column-data)
+ (fn [_state bead-value padded-number column-index value-path]
+   (let [columns (mapv logic/number->column-data padded-number)
+         new-columns (update columns column-index #(logic/toggle-bead bead-value %))
          new-number (logic/columns->number new-columns)]
-     [[:effects/save [:free-mode :number] new-number]])))
+     [[:effects/save value-path new-number]])))
 
 (defn generate-practice! [digits how-many-numbers subtraction]
   ; impure, has random generation and getTime

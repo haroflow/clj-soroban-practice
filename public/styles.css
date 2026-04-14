@@ -167,7 +167,6 @@ button {
 
 .full-width-centered {
   display: flex;
-  position: absolute;
   left: 0;
   right: 0;
   justify-content: center;

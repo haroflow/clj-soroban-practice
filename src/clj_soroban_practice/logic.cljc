@@ -17,10 +17,6 @@
      (when (:4 column-data) 1)
      (when (:5 column-data) 5)))
 
-(defn number->columns [number max-columns]
-  (->> (utils/pad-zero number max-columns)
-       (mapv number->column-data)))
-
 (defn columns->number [columns]
   (->> (map column-data->number columns)
        (apply str)
