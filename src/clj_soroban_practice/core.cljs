@@ -20,7 +20,7 @@
 
 (defn- sync-route []
   (let [new-route (-> js/window.location.hash (string/split "#/") second keyword)]
-    (nxr/dispatch store nil [[:effects/navigate new-route]])))
+    (nxr/dispatch store nil [[:actions/navigate new-route]])))
 
 (defn- load-voices []
   (let [voices (.getVoices js/speechSynthesis)]

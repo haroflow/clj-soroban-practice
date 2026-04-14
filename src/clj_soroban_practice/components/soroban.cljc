@@ -4,7 +4,8 @@
 
 (defn- bead [bead-value padded-number column-index value-path]
   [:div.bead-click-area
-   {:on {:click [[:actions/bead-click bead-value padded-number column-index value-path]]}}
+   (when value-path
+     {:on {:click [[:actions/bead-click bead-value padded-number column-index value-path]]}})
    [:div.bead]])
 
 (defn- expander [active]

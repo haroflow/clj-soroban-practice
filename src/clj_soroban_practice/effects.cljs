@@ -1,6 +1,5 @@
 (ns clj-soroban-practice.effects
   (:require
-   [clj-soroban-practice.utils :as utils]
    [nexus.registry :as nxr]))
 
 (nxr/register-effect!
@@ -24,10 +23,16 @@
    (swap! store assoc-in path value)))
 
 (nxr/register-effect!
- :effects/navigate
- (fn [_ store view-kw]
-   (utils/cancel-speech)
-   (swap! store assoc :route view-kw)))
+ :effects/cancel-speech
+ (fn [_ _]
+   (.cancel js/speechSynthesis)))
+
+(defn speak [phrase voice rate]
+  (.cancel js/speechSynthesis)
+  (let [utter (js/SpeechSynthesisUtterance. phrase)]
+    (set! (.-voice utter) voice)
+    (set! (.-rate utter) (or rate 1))
+    (.speak js/speechSynthesis utter)))
 
 ;; TODO we're using [:speed-training :voice], but this effect is global.
 (nxr/register-effect!
@@ -37,4 +42,24 @@
          voices (@store :voices)
          voice (first (filter #(= selected-voice (.-name %)) voices))
          rate (-> @store :speed-training :voice-rate)]
-     (utils/speak phrase voice rate))))
+     (speak phrase voice rate))))
+
+(nxr/register-effect!
+   :effects/start-clock
+   (fn [{:keys [dispatch]} store]
+     (let [clock-id (js/setInterval
+                     #(dispatch [[:effects/save [:now] (js/Date.)]])
+                     1000)]
+       (swap! store assoc :clock-id clock-id))))
+
+(nxr/register-effect!
+ :effects/stop-clock
+ (fn [_ store]
+   (when-let [clock-id (:clock-id @store)]
+     (js/clearInterval clock-id)
+     (swap! store assoc :clock-id nil))))
+
+(nxr/register-effect!
+ :effects/now
+ (fn [_ store]
+   (swap! store assoc :now (js/Date.))))

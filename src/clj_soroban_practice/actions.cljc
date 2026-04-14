@@ -1,7 +1,6 @@
 (ns clj-soroban-practice.actions
   (:require
    [clj-soroban-practice.logic :as logic]
-   [clj-soroban-practice.utils :as utils]
    [clojure.string :as string]
    [nexus.registry :as nxr]))
 
@@ -14,14 +13,12 @@
      [[:effects/save value-path new-number]])))
 
 (defn generate-practice! [digits how-many-numbers subtraction]
-  ; impure, has random generation and getTime
+  ; impure, has random generation
   (let [random-numbers (if subtraction
                          (logic/gen-numbers-with-subtraction how-many-numbers digits)
                          (repeatedly how-many-numbers #(logic/gen-random-number digits)))
-        sum (reduce + random-numbers)
-        now (utils/now)]
-    {:started-at now ; TODO not used
-     :numbers random-numbers
+        sum (reduce + random-numbers)]
+    {:numbers random-numbers
      :sum sum
      :speak (string/join " . " random-numbers)
      :show-answer false}))
@@ -47,3 +44,12 @@
          voice-selected? (not (clojure.string/blank? (:voice speed-training)))]
      (cond-> [[:effects/save [:speed-training :active-session :show-answer] true]]
        voice-selected? (conj [:effects/speak (str "Result: " (-> state :speed-training :active-session :sum))])))))
+
+(nxr/register-action!
+ :actions/navigate
+ (fn [_state new-route]
+   (cond-> [[:effects/cancel-speech]
+            [:effects/now]
+            [:effects/save [:route] new-route]]
+     (= :clock new-route) (concat [[:effects/start-clock]])
+     (not= :clock new-route) (concat [[:effects/stop-clock]]))))
