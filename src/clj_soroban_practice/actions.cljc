@@ -10,7 +10,8 @@
    (let [columns (mapv logic/number->column-data padded-number)
          new-columns (update columns column-index #(logic/toggle-bead bead-value %))
          new-number (logic/columns->number new-columns)]
-     [[:effects/save value-path new-number]])))
+     [[:effects/save value-path new-number]
+      [:effects/play-sound]])))
 
 (defn generate-practice! [digits how-many-numbers subtraction]
   ; impure, has random generation

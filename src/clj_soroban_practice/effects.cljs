@@ -47,8 +47,9 @@
 (nxr/register-effect!
    :effects/start-clock
    (fn [{:keys [dispatch]} store]
-     (let [clock-id (js/setInterval
-                     #(dispatch [[:effects/save [:now] (js/Date.)]])
+     (let [clock-id (js/setInterval 
+                     #(dispatch [[:effects/save [:now] (js/Date.)]
+                                 [:effects/play-sound]])
                      1000)]
        (swap! store assoc :clock-id clock-id))))
 
@@ -63,3 +64,8 @@
  :effects/now
  (fn [_ store]
    (swap! store assoc :now (js/Date.))))
+
+(nxr/register-effect!
+ :effects/play-sound
+ (fn [_ _store]
+   (.play (js/document.getElementById "click-sound"))))
