@@ -11,7 +11,6 @@
           :free-mode {:columns 6
                       :number 0}
           :speed-training {:digits 3
-                           :one-per-line false
                            :how-many-numbers 5
                            :voice-rate 1
                            :active-session nil})))

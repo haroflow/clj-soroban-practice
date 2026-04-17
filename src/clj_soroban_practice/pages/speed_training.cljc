@@ -4,7 +4,7 @@
 
 (defn render [state]
   (let [data (:speed-training state)
-        {:keys [digits how-many-numbers one-per-line active-session]} data]
+        {:keys [digits how-many-numbers active-session]} data]
     [:div
      [:p "Improve your calculation speed with randomly generated numbers and voice dictation."]
      [:div.flex-row-gap
@@ -22,8 +22,6 @@
                       [:speed-training :voice]
                       :show-none)]
 
-      [:label "One per line"
-       (inputs/checkbox one-per-line [:speed-training :one-per-line])]
       #_[:label "Show Soroban"
          (inputs/checkbox false [])]
       [:label "Subtraction"
@@ -48,10 +46,7 @@
                                :else (str " + " number)))]
          (list
           [:h3 "Numbers"]
-          (if one-per-line
-            (for [[i n] numbers]
-              [:p (format-number i n)])
-            [:p (for [[i n] numbers]
-                  (format-number i n))])
+          [:p (for [[i n] numbers]
+                (format-number i n))]
           (when (:show-answer active-session)
             [:h4 "Result: " (:sum active-session)]))))]))
