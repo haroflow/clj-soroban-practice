@@ -24,7 +24,8 @@
 
 (defn- load-voices []
   (let [voices (.getVoices js/speechSynthesis)]
-    (nxr/dispatch store nil [[:effects/save [:voices] voices]])))
+    (nxr/dispatch store nil [[:effects/save [:voices] voices]
+                             [:effects/save [:speed-training :voice] (some-> voices first .-name)]])))
 
 (defn ^:export init []
   (println "init")
