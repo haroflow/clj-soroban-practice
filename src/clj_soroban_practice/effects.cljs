@@ -34,7 +34,6 @@
     (set! (.-rate utter) (or rate 1))
     (.speak js/speechSynthesis utter)))
 
-;; TODO we're using [:speed-training :voice], but this effect is global.
 (nxr/register-effect!
  :effects/speak
  (fn [_ store phrase]

@@ -25,7 +25,6 @@
      :show-answer false}))
 
 ;; TODO Maybe add a global shortcut (spacebar) to show answer
-;; TODO Show elapsed time or time taken
 (nxr/register-action!
  :actions/start-speed-training
  (fn [state]

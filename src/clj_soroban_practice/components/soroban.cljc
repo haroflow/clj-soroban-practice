@@ -32,7 +32,6 @@
        (bead :4 padded-number column-index value-path)]]
      [:p.number-indicator number]]))
 
-;; TODO add reset button
 (defn render [number max-columns value-path]
   (let [number (if (pos? number) number 0)
         max-columns (if (pos? max-columns) max-columns 1)

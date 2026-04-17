@@ -17,7 +17,6 @@
    [:div.navbar
     (menu-button "Free Mode" :free-mode (:route state))
     (menu-button "Speed Training" :speed-training (:route state))
-    (menu-button "Learn" :learn (:route state))
     (menu-button "Clock" :clock (:route state))]
    
    (case (:route state)
