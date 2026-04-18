@@ -7,5 +7,5 @@
   [:div.inline-flex.flex-row-gap
    (let [now (-> (:now state)
                  .toLocaleTimeString
-                 (string/replace #":" ""))]
+                 (string/replace #"\D" ""))]
      (soroban/render now 6 nil))])
