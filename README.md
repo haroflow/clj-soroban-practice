@@ -13,12 +13,10 @@ Currently it features 3 modes:
 
 ## Pre-requisites
 
-- npm (tested on 10.8.2)
-- node (tested on v20.19.5)
-
-You might need these:
 - Java JDK
 - Clojure CLI (tested on 1.12.4)
+- npm (tested on 10.8.2)
+- node (tested on v20.19.5)
 
 ## How to run for development
 
