@@ -9,6 +9,8 @@ Currently it features 3 modes:
 - **Speed training:** practice on a physical soroban with voice dictation.
 - **Clock:** a fun visualization of a clock using a soroban, this was primarily an exercise in handling timeouts/intervals in Replicant.
 
+<img width="668" height="462" alt="Record_2026_04_17_19_55_26_17" src="https://github.com/user-attachments/assets/6649024c-7215-4f93-9a66-6ed592665480" />
+
 ## Pre-requisites
 
 - npm (tested on 10.8.2)
